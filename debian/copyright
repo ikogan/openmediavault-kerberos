@@ -1,0 +1,9 @@
+Format: http://dep.debian.net/deps/dep5
+Upstream-Contact: Ilya Kogan <ikogan@flarecode.com>
+Copyright: 2015 Ilya Kogan <ikogan@flarecode.com>
+License: GPL-3
+
+Files: /var/www/openmediavault/images/kerberos.png
+       /var/www/openmediavault/images/kerberos.svg
+Copyright: IcoMoon <http://www.icomoon.io>
+IcoMoon <http://www.icomoon.io>
