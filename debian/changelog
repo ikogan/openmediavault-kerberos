@@ -1,0 +1,7 @@
+openmediavault-kerberos (0.1.0) UNRELEASED; urgency=low
+
+  * Initial release.
+  * Full implementation of initial Kerberos plugin.
+  * Integrations for Samba, SSH, NFS, and PAM.
+
+ -- Ilya Kogan <ikogan@flarecode>  Mon, 23 Mar 2015 23:10:49 -0400
