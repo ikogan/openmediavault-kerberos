@@ -67,10 +67,10 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		// Modify result object.
 		$object['enable'] = boolvalEx($object['enable']);
 		$object['logging'] = boolvalEx($object['logging']);
-		$object['integrations/nfs'] = boolvalEx($object['integrations/nfs']);
-		$object['integrations/smb'] = boolvalEx($object['integrations/smb']);
-		$object['integrations/ssh'] = boolvalEx($object['integrations/ssh']);
-		$object['integrations/pam'] = boolvalEx($object['integrations/pam']);
+		$object['nfs-enabled'] = boolvalEx($object['nfs-enabled']);
+		$object['smb-enabled'] = boolvalEx($object['smb-enabled']);
+		$object['ssh-enabled'] = boolvalEx($object['ssh-enabled']);
+		$object['pam-enabled'] = boolvalEx($object['pam-enabled']);
 
 		return $object;
 	}
@@ -101,10 +101,10 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 				"adminServer": {"type": "string"},
 				"logging": {"type": "boolean"},
 				"extraoptions": {"type": "string"},
-				"integrations/nfs": {"type": "boolean"},
-				"integrations/smb": {"type": "boolean"},
-				"integrations/ssh": {"type": "boolean"},
-				"integrations/pam": {"type": "boolean"}
+				"nfs-enabled": {"type": "boolean"},
+				"smb-enabled": {"type": "boolean"},
+				"ssh-enabled": {"type": "boolean"},
+				"pam-enabled": {"type": "boolean"}
 			}
 		}');
 
@@ -116,10 +116,10 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			"adminServer" => trim($params['adminServer']),
 			"logging" => array_boolval($params, 'adminServer'),
 			"extraoptions" => $params['extraoptions'],
-			"integrations/nfs" => array_boolval($params, 'integrations/nfs'),
-			"integrations/smb" => array_boolval($params, 'integrations/smb'),
-			"integrations/ssh" => array_boolval($params, 'integrations/ssh'),
-			"integrations/pam" => array_boolval($params, 'integrations/pam')
+			"nfs-enabled" => array_boolval($params, 'nfs-enabled'),
+			"smb-enabled" => array_boolval($params, 'smb-enabled'),
+			"ssh-enabled" => array_boolval($params, 'ssh-enabled'),
+			"pam-enabled" => array_boolval($params, 'pam-enabled')
 		);
 
 		// Set the configuration object

@@ -29,7 +29,7 @@ set -e
 OMV_SAMBA_CONFIG=${OMV_SAMBA_CONFIG:-"/etc/samba/smb.conf"}
 
 [ "$(omv_config_get "//services/smb/enable")" = "0" -o \
-  "$(omv_config_get "//services/kerberos/integrations/samba)" = "0" -o \
+  "$(omv_config_get "//services/kerberos/smb-enabled")" = "0" -o \
   "$(omv_config_get "//services/kerberos/enable")" = "0" ] && exit 0
 
 xmlstarlet sel -t -m "//services/kerberos" \

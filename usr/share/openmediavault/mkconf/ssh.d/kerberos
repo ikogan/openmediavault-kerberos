@@ -27,7 +27,7 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 [ "$(omv_config_get "//services/ssh/enable")" = "0" -o \
-  "$(omv_config_get "//services/kerberos/integrations/ssh)" = "0" -o \
+  "$(omv_config_get "//services/kerberos/ssh-enabled")" = "0" -o \
   "$(omv_config_get "//services/kerberos/enable")" = "0" ] && exit 0
 
 . ${OMV_MKCONF_SCRIPTS_DIR}/ssh

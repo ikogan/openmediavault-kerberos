@@ -27,7 +27,7 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 # PAM profiles are stored below /usr/share/pam-configs
-if [ "$(omv_config_get "//services/kerberos/enable")" = "1" ] && [ "$(omv_config_get "//services/kerberos/integrations/pam")" = "1" ]; then
+if [ "$(omv_config_get "//services/kerberos/enable")" = "1" ] && [ "$(omv_config_get "//services/kerberos/pam-enabled")" = "1" ]; then
 	pam-auth-update --force --package krb5
 else
 	pam-auth-update --force --package --remove krb5

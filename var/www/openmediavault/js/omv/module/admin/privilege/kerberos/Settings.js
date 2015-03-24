@@ -95,25 +95,25 @@ Ext.define("OMV.module.admin.privilege.kerberos.Settings", {
             },
             items : [{
                 xtype      : "checkbox",
-                name       : "integrations/nfs",
+                name       : "nfs-enabled",
                 fieldLabel : _("NFS"),
                 checked    : true,
                 boxLabel   : _("Enable support for Kerberos security for NFS shares. Note that this must still be enabled per share by adding the `sec=krb5`, `sec=krb5i`, or `sec=krb5p` options.")
             }, {
                 xtype      : "checkbox",
-                name       : "integrations/smb",
+                name       : "smb-enabled",
                 fieldLabel : _("SMB/CIFS"),
                 checked    : true,
                 boxLabel   : _("Enable support for Kerberos authentication for SMB/CIFS.")
             }, {
                 xtype      : "checkbox",
-                name       : "integrations/ssh",
+                name       : "ssh-enabled",
                 fieldLabel : _("SSH"),
                 checked    : true,
                 boxLabel   : _("Enable support for Kerberos and GSSAPI authentication for SSH.")
             }, {
                 xtype      : "checkbox",
-                name       : "integrations/pam",
+                name       : "pam-enabled",
                 fieldLabel : _("PAM"),
                 checked    : true,
                 boxLabel   : _("Enable support for system-wide Kerberos authentication via PAM.")
