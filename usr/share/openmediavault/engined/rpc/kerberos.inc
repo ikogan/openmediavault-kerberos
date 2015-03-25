@@ -109,9 +109,9 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		}');
 
 		// Prepare the configuration object.
-		$object -> array(
+		$object = array(
 			"enable" => array_boolval($params, 'enable'),
-			"realm" => trim($params['realm']),
+			"realm" => strtoupper(trim($params['realm'])),
 			"kdc" => trim($params['kdc']),
 			"adminServer" => trim($params['adminServer']),
 			"logging" => array_boolval($params, 'adminServer'),
