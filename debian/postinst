@@ -34,15 +34,14 @@ case "$1" in
         if ! omv_config_exists "${SERVICE_XPATH}"; then
             omv_config_add_element "/config/services" "${SERVICE_XPATH_NAME}"
             omv_config_add_element "${SERVICE_XPATH}" "enable" "0"
-            omv_config_add_element "${SERVICE_XPATH}" "name" "Kerberos"
             omv_config_add_element "${SERVICE_XPATH}" "realm" ""
             omv_config_add_element "${SERVICE_XPATH}" "kdc" ""
-            omv_config_add_element "${SERVICE_XPATH}" "admin_server" ""
+            omv_config_add_element "${SERVICE_XPATH}" "adminServer" ""
 
-            omv_config_add_element "${SERVICE_XPATH}" "/integrations/samba" "1"
-            omv_config_add_element "${SERVICE_XPATH}" "/integrations/pam"   "1"
-            omv_config_add_element "${SERVICE_XPATH}" "/integrations/nfs"   "1"
-            omv_config_add_element "${SERVICE_XPATH}" "/integrations/ssh"   "1"
+            omv_config_add_element "${SERVICE_XPATH}" "/smb-enabled"   "1"
+            omv_config_add_element "${SERVICE_XPATH}" "/pam-enabled"   "1"
+            omv_config_add_element "${SERVICE_XPATH}" "/nfs-enabled"   "1"
+            omv_config_add_element "${SERVICE_XPATH}" "/nfs-enabled"   "1"
         fi
 
         if ! omv_config_exists "${SERVICE_XPATH}/loglevel"; then
