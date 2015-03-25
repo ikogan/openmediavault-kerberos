@@ -29,29 +29,35 @@ set -e
 OMV_KRB5_CONFIG="/etc/krb5.conf"
 OMV_KRB5_KEYTAB="/etc/krb5.keytab"
 
-rm ${KRB5_CONFIG}
+rm ${OMV_KRB5_CONFIG}
 
 [ "$(omv_config_get "//services/kerberos/enable")" = "0"] && exit 0
 
-if [ "$(omv_config_get) '//services/kerberos/logging')" = "1" ]; then
+if [ "$(omv_config_get "//services/kerberos/logging")" = "1" ]; then
 	xmlstarlet sel -t -m "//services/kerberos" \
 		-o "[logging]" -n \
-		-o "default = FILE:/var/log/kerberos.log" -n \
+		-o "	" -o "default = FILE:/var/log/kerberos.log" -n \
 	-b \
 	${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
 fi
 
 xmlstarlet sel -t -m "//services/kerberos" \
 	-o "[libdefaults]" -n \
-	-v "concat('default_realm = ', realm)" -n \
+	-o "	" -v "concat('default_realm = ', realm)" -n \
 	-n \
 	-o "[realms]" -n \
 	-o "	" -v "concat(realm, ' = {')" -n \
 	-o "		" -v "concat('kdc = ', kdc)" -n \
 	-o "		" -v "concat('admin_server = ', adminServer)" -n \
 	-o "		" -v "concat('default_domain = ', realm)" -n \
+	-o "	}" -n \
 	-n \
 	-o "[domain_realm]" -n \
 	-o "	" -v "translate(realm, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" -v "concat(' = ', realm)" -n \
 -b \
 ${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
+
+# Run these manually for now since SSH and NFS don't support running
+# things like this.
+${OMV_MKCONF_SCRIPTS_DIR}/nfs.d/kerberos
+${OMV_MKCONF_SCRIPTS_DIR}/ssh.d/kerberos

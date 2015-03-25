@@ -114,7 +114,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			"realm" => strtoupper(trim($params['realm'])),
 			"kdc" => trim($params['kdc']),
 			"adminServer" => trim($params['adminServer']),
-			"logging" => array_boolval($params, 'adminServer'),
+			"logging" => array_boolval($params, 'logging'),
 			"extraoptions" => $params['extraoptions'],
 			"nfs-enabled" => array_boolval($params, 'nfs-enabled'),
 			"smb-enabled" => array_boolval($params, 'smb-enabled'),

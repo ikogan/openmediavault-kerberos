@@ -53,6 +53,21 @@ class OMVModuleKerberos extends OMVModuleServiceAbstract
               OMV_NOTIFY_MODIFY,
               "org.openmediavault.services.kerberos",
               array($this, "setDirty"));
+
+            // This is fun. Since SSH doesn't have any way
+            // of executing our scripts when things change, we're going
+            // to listen for SSH to change it's settings, and set
+            // ourselves dirty. That way, after it's generated
+            // it's configs, we should also get run and generate ours,
+            // overwriting it's.
+            //
+            // However, we take care not to set SSH dirty after we've run
+            // or it'll clobber our changes.
+            $dispatcher->addListener(
+              OMV_NOTIFY_MODIFY,
+              "org.openmediavault.services.ssh",
+              array($this, "setDirty"));
+
             $moduleMgr = &OMVModuleMgr::getInstance();
             $dispatcher->addListener(
               OMV_NOTIFY_MODIFY,
@@ -66,10 +81,6 @@ class OMVModuleKerberos extends OMVModuleServiceAbstract
               OMV_NOTIFY_MODIFY,
               "org.openmediavault.services.kerberos",
               array($moduleMgr->getModule("nfs"), "setDirty"));
-            $dispatcher->addListener(
-              OMV_NOTIFY_MODIFY,
-              "org.openmediavault.services.kerberos",
-              array($moduleMgr->getModule("ssh"), "setDirty"));
         }
 }
 
