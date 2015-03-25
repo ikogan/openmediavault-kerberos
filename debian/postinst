@@ -38,15 +38,17 @@ case "$1" in
             omv_config_add_element "${SERVICE_XPATH}" "kdc" ""
             omv_config_add_element "${SERVICE_XPATH}" "adminServer" ""
 
-            omv_config_add_element "${SERVICE_XPATH}" "/smb-enabled"   "1"
-            omv_config_add_element "${SERVICE_XPATH}" "/pam-enabled"   "1"
-            omv_config_add_element "${SERVICE_XPATH}" "/nfs-enabled"   "1"
-            omv_config_add_element "${SERVICE_XPATH}" "/nfs-enabled"   "1"
+            omv_config_add_element "${SERVICE_XPATH}" "smb-enabled"   "1"
+            omv_config_add_element "${SERVICE_XPATH}" "pam-enabled"   "1"
+            omv_config_add_element "${SERVICE_XPATH}" "nfs-enabled"   "1"
+            omv_config_add_element "${SERVICE_XPATH}" "nfs-enabled"   "1"
         fi
 
         if ! omv_config_exists "${SERVICE_XPATH}/loglevel"; then
             omv_config_add_element "${SERVICE_XPATH}" "loglevel" "error"
         fi
+
+	pam-auth-update --remove krb5
 
         dpkg-trigger update-fixperms
         dpkg-trigger update-locale
