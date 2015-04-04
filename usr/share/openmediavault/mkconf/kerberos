@@ -29,35 +29,39 @@ set -e
 OMV_KRB5_CONFIG="/etc/krb5.conf"
 OMV_KRB5_KEYTAB="/etc/krb5.keytab"
 
-rm ${OMV_KRB5_CONFIG}
+rm -f ${OMV_KRB5_CONFIG}
 
-[ "$(omv_config_get "//services/kerberos/enable")" = "0"] && exit 0
+if [ "$(omv_config_get "//services/kerberos/enable")" = "1" ]; then
+	if [ "$(omv_config_get "//services/kerberos/logging")" = "1" ]; then
+		xmlstarlet sel -t -m "//services/kerberos" \
+			-o "[logging]" -n \
+			-o "	" -o "default = FILE:/var/log/kerberos.log" -n \
+		-b \
+		${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
+	fi
 
-if [ "$(omv_config_get "//services/kerberos/logging")" = "1" ]; then
 	xmlstarlet sel -t -m "//services/kerberos" \
-		-o "[logging]" -n \
-		-o "	" -o "default = FILE:/var/log/kerberos.log" -n \
+		-o "[libdefaults]" -n \
+		-o "	" -v "concat('default_realm = ', realm)" -n \
+		-n \
+		-o "[realms]" -n \
+		-o "	" -v "concat(realm, ' = {')" -n \
+		-o "		" -v "concat('kdc = ', kdc)" -n \
+		-o "		" -v "concat('admin_server = ', adminServer)" -n \
+		-o "		" -v "concat('default_domain = ', realm)" -n \
+		-o "	}" -n \
+		-n \
+		-o "[domain_realm]" -n \
+		-o "	" -v "translate(realm, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" -v "concat(' = ', realm)" -n \
 	-b \
 	${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
+
+	if [ "$(omv_config_get "//services/nfs/enable")" = "0" -o \
+	  "$(omv_config_get "//services/kerberos/nfs-enabled")" = "0" -o ]; then
+		omv_set_default "OMV_NFSD_NEEDSVCGSSD" "yes"
+	else
+		omv_set_default "OMV_NFSD_NEEDSVCGSSD" ""
+	fi
+else
+	omv_set_default "OMV_NFSD_NEEDSVCGSSD" ""
 fi
-
-xmlstarlet sel -t -m "//services/kerberos" \
-	-o "[libdefaults]" -n \
-	-o "	" -v "concat('default_realm = ', realm)" -n \
-	-n \
-	-o "[realms]" -n \
-	-o "	" -v "concat(realm, ' = {')" -n \
-	-o "		" -v "concat('kdc = ', kdc)" -n \
-	-o "		" -v "concat('admin_server = ', adminServer)" -n \
-	-o "		" -v "concat('default_domain = ', realm)" -n \
-	-o "	}" -n \
-	-n \
-	-o "[domain_realm]" -n \
-	-o "	" -v "translate(realm, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" -v "concat(' = ', realm)" -n \
--b \
-${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
-
-# Run these manually for now since SSH and NFS don't support running
-# things like this.
-${OMV_MKCONF_SCRIPTS_DIR}/nfs.d/kerberos
-${OMV_MKCONF_SCRIPTS_DIR}/ssh.d/kerberos

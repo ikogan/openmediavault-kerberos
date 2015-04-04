@@ -49,7 +49,7 @@ case "$1" in
         # Since libpam-krb5 automatically enables itself on install, we need
         # to make sure we disable it. However, if a user has already enabled it
         # on upgrade, we need to make sure we don't flip it off by mistake.
-	    ${OMV_MKCONF_SCRIPTS_DIR}/pam.d/kerberos
+	    ${OMV_MKCONF_SCRIPTS_DIR}/pam.d/12-kerberos
 
         dpkg-trigger update-fixperms
         dpkg-trigger update-locale
