@@ -155,17 +155,17 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		$list = array();
 
 		foreach($output as $outputv) {
-			$outputv = preg_split("/\s+/", $outputv);
+			$outputv = preg_split("/\s+/", trim($outputv));
 
 			// We need to throw away all of the lines that don't start with a number
 			if(is_numeric($outputv[0])) {
 				$entry = array(
-					"slot" => $output[0],
-					"version" => $output[1],
-					"principal" => $output[2]
+					"slot" => $outputv[0],
+					"version" => $outputv[1],
+					"principal" => $outputv[2]
 				);
 
-				if(preg_match($this -> $principalRegex, $principal, $matches)) {
+				if(preg_match($this -> principalRegex, $principal, $matches)) {
 					$entry["type"] = $matches[1];
 					$entry["object"] = $matches[2];
 					$entry["realm"] = $matches[3];

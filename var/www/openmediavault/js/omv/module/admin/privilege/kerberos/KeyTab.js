@@ -53,6 +53,7 @@ Ext.define("OMV.module.admin.privilege.kerberos.KeyTab", {
 
 	stateful: true,
 	stateId: "17a383a3-f68a-45ef-969e-bbe75f845396",
+	selType: "checkboxmodel",
 	columns: [{
 		text: _("Slot"),
 		sortable: true,
@@ -67,7 +68,8 @@ Ext.define("OMV.module.admin.privilege.kerberos.KeyTab", {
 		text: _("Principal"),
 		sortable: true,
 		dataIndex: "principal",
-		stateId: "principal"
+		stateId: "principal",
+		flex: 1
 	}],
 
 	initComponent: function() {
