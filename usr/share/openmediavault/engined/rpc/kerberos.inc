@@ -26,6 +26,8 @@ require_once("openmediavault/rpcservice.inc");
 require_once("openmediavault/notify.inc");
 
 class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
+	private $principalRegex = "/(.*)\/(.*)@(.*)$/";
+
 	/**
 	 * Get the RPC service name.
 	 */
@@ -39,6 +41,8 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 	public function initialize() {
 		$this -> registerMethod("getSettings");
 		$this -> registerMethod("setSettings");
+		$this -> registerMethod("getKeyTab");
+		$this -> registerMethod("addKeyFromKeyServer");
 	}
 
 	/**
@@ -76,7 +80,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 	}
 
 	/**
-	 * Set the LDAP configuration settings.
+	 * Set the Kerberos configuration settings.
 	 *
 	 * @param params An array containing all of the fields and values.
 	 * @param context The context of the caller.
@@ -133,6 +137,77 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		$dispatcher -> notify(OMV_NOTIFY_MODIFY,"org.openmediavault.services.kerberos", $object);
 
 		return $object;
+	}
+
+	function getKeyTab($params, $context) {
+		// Validate the RPC caller context
+		$this -> validateMethodContext($context, array(
+			"role" => OMV_ROLE_ADMINISTRATOR
+		));
+
+		$cmd = "export LANG=C; echo \"rkt /etc/krb5.keytab\nlist\" | ktutil";
+		@OMVUtil::exec($cmd, $output, $result);
+
+		if($result !== 0) {
+			return FALSE;
+		}
+
+		$list = array();
+
+		foreach($output as $outputv) {
+			$outputv = preg_split("/\s+/", $outputv);
+
+			// We need to throw away all of the lines that don't start with a number
+			if(is_numeric($outputv[0])) {
+				$entry = array(
+					"slot" => $output[0],
+					"version" => $output[1],
+					"principal" => $output[2]
+				);
+
+				if(preg_match($this -> $principalRegex, $principal, $matches)) {
+					$entry["type"] = $matches[1];
+					$entry["object"] = $matches[2];
+					$entry["realm"] = $matches[3];
+				}
+
+				$list[] = $entry;
+			}
+		}
+		
+		return $list;
+	}
+
+	function addKeyFromKeyServer($params, $context) {
+		// Validate the RPC caller context
+		$this -> validateMethodContext($context, array(
+			"role" => OMV_ROLE_ADMINISTRATOR
+		));
+
+		// Validate the parameters of the RPC servicemethod.
+		$this -> validateMethodParams($params, '{
+			"type": "object",
+			"properties": {
+				"adminPassword": {"type": "string"},
+				"adminPrincipal": {"type": "string"},
+				"targetPrincipal": {"type": "string"}
+			}
+		}');
+
+		$cmd = sprintf("export LANG=C; kadmin -p %s -w %s -q \"ktadd %s\"",
+				$params['adminPrincipal'],
+				$params['adminPassword'],
+				$params['targetPrincipal']
+		);
+		$output = array();
+		$result = $this -> exec($cmd, $output);
+
+		if($result !== 0) {
+			throw new OMVException(OMVErrorMsg::E_MISC_FAILURE,
+				sprintf("%s: %s", gettext("Failed to add desired key from KDC"), implode("\n", $output)));
+		}
+
+		return $output;
 	}
 }
 
