@@ -43,6 +43,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		$this -> registerMethod("setSettings");
 		$this -> registerMethod("getKeyTab");
 		$this -> registerMethod("addKeyFromKeyServer");
+		$this -> registerMethod("removeKey");
 	}
 
 	/**
@@ -145,7 +146,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			"role" => OMV_ROLE_ADMINISTRATOR
 		));
 
-		$cmd = "export LANG=C; echo \"rkt /etc/krb5.keytab\nlist\" | ktutil";
+		$cmd = "export LANG=C; echo \"rkt /etc/krb5.keytab\nlist\" | ktutil 2>&1";
 		@OMVUtil::exec($cmd, $output, $result);
 
 		if($result !== 0) {
@@ -160,8 +161,8 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			// We need to throw away all of the lines that don't start with a number
 			if(is_numeric($outputv[0])) {
 				$entry = array(
-					"slot" => $outputv[0],
-					"version" => $outputv[1],
+					"slot" => intval($outputv[0]),
+					"version" => intval($outputv[1]),
 					"principal" => $outputv[2]
 				);
 
@@ -194,17 +195,72 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			}
 		}');
 
-		$cmd = sprintf("export LANG=C; kadmin -p %s -w %s -q \"ktadd %s\"",
+		$currentKeytab = $this -> getKeyTab($params, $context);
+
+		$cmd = sprintf("export LANG=C; kadmin -p %s -w %s -q \"ktadd %s\" 2>&1",
 				$params['adminPrincipal'],
 				$params['adminPassword'],
 				$params['targetPrincipal']
 		);
-		$output = array();
 		$result = $this -> exec($cmd, $output);
 
 		if($result !== 0) {
 			throw new OMVException(OMVErrorMsg::E_MISC_FAILURE,
 				sprintf("%s: %s", gettext("Failed to add desired key from KDC"), implode("\n", $output)));
+		}
+
+		$newKeyTab = $this -> getKeyTab($params, $context);
+
+		if(count($currentKeyTab) === count($newKeyTab)) {
+			throw new OMVException(OMVErrorMsg::E_MISC_FAILURE,
+				sprintf("%s: %s", gettext("Failed to add desired key from KDC"), implode("\n", $output)));
+		}
+
+		return $output;
+	}
+
+	function removeKey($params, $context) {
+		// Validate the RPC caller context
+		$this -> validateMethodContext($context, array(
+			"role" => OMV_ROLE_ADMINISTRATOR
+		));
+
+		// Validate the parameters of the RPC servicemethod.
+		$this -> validateMethodParams($params, '{
+			"type": "object",
+			"properties": {
+				"slots": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "integer"
+					},
+					"uniqueItems": true
+				}
+			}
+		}');
+
+		$currentKeyTab = $this -> getKeyTab($params, $context);
+
+		if(count($params['slots']) === 1 || count($params['slots']) === count($currentKeyTab)) {
+			$cmd = "export LANG=C; rm -f /etc/krb5.keytab";
+		} else {
+			arsort($params['slots']);
+
+			$cmd = "export LANG=C; echo \"rkt /etc/krb5.keytab\n";
+
+			for($num = 0; $num < count($params['slots']); ++$num) {
+				$cmd .= "delent " . $params['slots'][0] . "\n";
+			}
+
+			$cmd .= "wkt /tmp/krb5.keytab\" | ktutil && mv /tmp/krb5.keytab /etc/krb5.keytab 2>&1";
+		}
+
+		$result = $this -> exec($cmd, $output);
+
+		if($result !== 0) {
+			throw new OMVException(OMVErrorMsg::E_MISC_FAILURE,
+				sprintf("%s: %s", gettext("Failed to remove key(s) from key tab"), implode("\n", $output)));
 		}
 
 		return $output;

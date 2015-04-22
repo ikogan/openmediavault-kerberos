@@ -101,61 +101,111 @@ Ext.define("OMV.module.admin.privilege.kerberos.KeyTab", {
 		me.callParent(arguments);
 	},
 
+	getTopToolbarItems: function() {
+		var me = this;
+		var items = me.callParent(arguments);
+
+		Ext.Array.push(items, [{
+			id: me.getId() + "-reload",
+			xtype: "button",
+			text: _("Reload"),
+			icon: "images/refresh.png",
+			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			handler: Ext.Function.bind(me.onReloadButton, me, [me]),
+			scope: me,
+			disabled: false
+		}]);
+
+		return items;
+	},
+
+	onReloadButton: function() {
+		this.doReload();
+	},
+
 	onAddButton: function() {
-		Ext.create("OMV.module.admin.privilege.kerberos.AddKey").show();
+		var me = this;
+
+		Ext.create("OMV.module.admin.privilege.kerberos.AddKey", {
+			listeners: {
+				scope: me,
+				submit: function() {
+					me.doReload();
+				}
+			}
+		}).show();
 	},
 
 	onDeleteButton: function() {
 		var me = this;
-		var records = me.getSelected();
+		var records = me.getSelection();
 
-		Ext.create("OMV.module.admin.privilege.kerberos.DeleteKeys", {
-			keys: records,
-			listeners: {
-				scope: me,
-				submit: function() {
-					this.doReload();
-				}
+		Ext.MessageBox.confirm('Delete Keys?', 'Are you sure you want to remove these keys?', function(button) {
+			if(button === 'yes') {
+				var slots = [];
+				Ext.each(records, function(record) {
+					slots.push(record.raw.slot);
+				});
+
+				OMV.Rpc.request({
+					scope: me,
+					callback: function(id, success, response) {
+						if(success) {
+							me.doReload();
+						} else {
+           					Ext.Msg.alert('Error', response.message);
+						}
+					},
+					rpcData: {
+						service: "Kerberos",
+						method: "removeKey",
+						params: {
+							'slots': slots
+						}
+					}
+				});
 			}
-		}).show()
+		}, me);
 	}
 });
 
- /**
+/**
  * @class OMV.module.admin.privilege.kerberos.KeyTab
  * @derived OMV.workspace.window.Form
  *
  * Load a new key from the key server
  */
- Ext.define("OMV.module.admin.privilege.kerberos.AddKey", {
- 	extend: "OMV.workspace.window.Form",
+Ext.define("OMV.module.admin.privilege.kerberos.AddKey", {
+	extend: "OMV.workspace.window.Form",
 
- 	title: _("Add Key from Key Server"),
- 	hideTopToolbar: true,
- 	rpcService: "Kerberos",
- 	rpcSetMethod: "addKeyFromKeyServer",
+	title: _("Add Key from Key Server"),
+	hideTopToolbar: true,
+	rpcService: "Kerberos",
+	rpcSetMethod: "addKeyFromKeyServer",
 
- 	getFormItems: function() {
- 		var me = this;
+	getFormItems: function() {
+		var me = this;
 
- 		return [{
- 			xtype: "textfield",
- 			name: "adminPrincipal",
- 			fieldLabel: _("Administration Principal"),
- 			value: me.adminPrincipal
- 		}, {
- 			xtype: "passwordfield",
- 			name: "adminPassword",
- 			fieldLabel: _("Administration Password"),
- 			value: me.adminPassword
- 		}, {
- 			xtype: "textfield",
- 			name: "targetPrincipal",
- 			fieldLabel: _("Target Principal"),
- 			value: me.targetPrincipal
- 		}]
- 	}
- });
+		return [{
+			xtype: "textfield",
+			name: "adminPrincipal",
+			fieldLabel: _("Administration Principal"),
+			value: me.adminPrincipal
+		}, {
+			xtype: "passwordfield",
+			name: "adminPassword",
+			fieldLabel: _("Administration Password"),
+			value: me.adminPassword
+		}, {
+			xtype: "textfield",
+			name: "targetPrincipal",
+			fieldLabel: _("Target Principal"),
+			value: me.targetPrincipal
+		}]
+	}
+});
+
+
 
  OMV.WorkspaceManager.registerPanel({
  	id: "keytab",
