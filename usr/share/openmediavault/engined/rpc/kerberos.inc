@@ -140,6 +140,13 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		return $object;
 	}
 
+	/**
+	 * Get the current keytab.
+	 *
+	 * @param params An array containing all of the parameters to this function.
+	 * @param context The context of the caller.
+	 * @return A list of keytab items.
+	 */
 	function getKeyTab($params, $context) {
 		// Validate the RPC caller context
 		$this -> validateMethodContext($context, array(
@@ -179,6 +186,17 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		return $list;
 	}
 
+	/**
+	 * Load a key from a KDC into the local keytab.
+	 *
+	 * Required parameters are an admin principal that has rights
+	 * to read the desired keytab, the admin principal's password,
+	 * and the target keytab to load.
+	 *
+	 * @param params An array containing all of the parameters to this function.
+	 * @param context The context of the caller.
+	 * @return A list of keytab items.
+	 */
 	function addKeyFromKeyServer($params, $context) {
 		// Validate the RPC caller context
 		$this -> validateMethodContext($context, array(
@@ -195,6 +213,9 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			}
 		}');
 
+		// Since kadmin's status reporting is rediculous, we're going
+		// to see if this worked by reading the keytab before and after,
+		// and comparing.
 		$currentKeytab = $this -> getKeyTab($params, $context);
 
 		$cmd = sprintf("export LANG=C; kadmin -p %s -w %s -q \"ktadd %s\" 2>&1",
@@ -211,6 +232,8 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 
 		$newKeyTab = $this -> getKeyTab($params, $context);
 
+		// If the number of keys in the old and new keytabs is identical,
+		// we failed.
 		if(count($currentKeyTab) === count($newKeyTab)) {
 			throw new OMVException(OMVErrorMsg::E_MISC_FAILURE,
 				sprintf("%s: %s", gettext("Failed to add desired key from KDC"), implode("\n", $output)));
@@ -219,6 +242,15 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		return $output;
 	}
 
+	/**
+	 * Remove one or more keys from the local keytab.
+	 *
+	 * This simply takes a list of slot numbers.
+	 *
+	 * @param params An array containing all of the parameters to this function.
+	 * @param context The context of the caller.
+	 * @return A list of keytab items.
+	 */
 	function removeKey($params, $context) {
 		// Validate the RPC caller context
 		$this -> validateMethodContext($context, array(
@@ -240,6 +272,15 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			}
 		}');
 
+		// ktutil is also rediculous. The slot number is monotonically
+		// increasing, with no gaps. As soon as we remove a key, all keys
+		// move down a slot. This means we can't actually use the slot number
+		// as given to remove keys. We need to compute the correct slot number
+		// to use based on the changes we're making. It's so much fun.
+		//
+		// However, if this operating will result in no keys, ktutil will simply
+		// write no file. So, if there is only one key in the keytab or we're removing
+		// the same number as in the keytab, simply delete the keytab file.
 		$currentKeyTab = $this -> getKeyTab($params, $context);
 
 		if(count($params['slots']) === 1 || count($params['slots']) === count($currentKeyTab)) {
@@ -249,8 +290,15 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 
 			$cmd = "export LANG=C; echo \"rkt /etc/krb5.keytab\n";
 
-			for($num = 0; $num < count($params['slots']); ++$num) {
+			// So, lets do this N times, one for each slot to be removed.
+			// As we do this, every time we remove one, we decrement the rest
+			// of the slots by 1.
+			for($slot = 0; $slot < count($params['slots']); ++$slot) {
 				$cmd .= "delent " . $params['slots'][0] . "\n";
+
+				for($num = $slot+1; $num < count($params['slots']); ++$num) {
+					$params['slots'][$num]--;
+				}
 			}
 
 			$cmd .= "wkt /tmp/krb5.keytab\" | ktutil && mv /tmp/krb5.keytab /etc/krb5.keytab 2>&1";
