@@ -106,6 +106,15 @@ Ext.define("OMV.module.admin.privilege.kerberos.KeyTab", {
 		var items = me.callParent(arguments);
 
 		Ext.Array.push(items, [{
+			id: me.getId() + "-create",
+			xtype: "button",
+			text: _("Create Principal"),
+			icon: "images/upload.png",
+			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			handler: Ext.Function.bind(me.onCreateButton, me, [me]),
+			scope: me,
+			disabled: false
+		}, {
 			id: me.getId() + "-reload",
 			xtype: "button",
 			text: _("Reload"),
@@ -121,6 +130,19 @@ Ext.define("OMV.module.admin.privilege.kerberos.KeyTab", {
 
 	onReloadButton: function() {
 		this.doReload();
+	},
+
+	onCreateButton: function() {
+		var me = this;
+
+		Ext.create("OMV.module.admin.privilege.kerberos.CreateKey", {
+			listeners: {
+				scope: me,
+				submit: function() {
+					me.doReload();
+				}
+			}
+		}).show();		
 	},
 
 	onAddButton: function() {
@@ -170,7 +192,7 @@ Ext.define("OMV.module.admin.privilege.kerberos.KeyTab", {
 });
 
 /**
- * @class OMV.module.admin.privilege.kerberos.KeyTab
+ * @class OMV.module.admin.privilege.kerberos.AddKey
  * @derived OMV.workspace.window.Form
  *
  * Load a new key from the key server
@@ -190,27 +212,89 @@ Ext.define("OMV.module.admin.privilege.kerberos.AddKey", {
 			xtype: "textfield",
 			name: "adminPrincipal",
 			fieldLabel: _("Administration Principal"),
-			value: me.adminPrincipal
+			value: me.adminPrincipal,
+			allowBlank: false
 		}, {
 			xtype: "passwordfield",
 			name: "adminPassword",
 			fieldLabel: _("Administration Password"),
-			value: me.adminPassword
+			value: me.adminPassword,
+			allowBlank: false
 		}, {
 			xtype: "textfield",
 			name: "targetPrincipal",
 			fieldLabel: _("Target Principal"),
-			value: me.targetPrincipal
+			value: me.targetPrincipal,
+			allowBlank: false
 		}]
 	}
 });
 
+/**
+ * @class OMV.module.admin.privilege.kerberos.CreateKey
+ * @derived OMV.workspace.window.Form
+ *
+ * Create a new key on the key server and load it into the
+ * local keytab.
+ */
+Ext.define("OMV.module.admin.privilege.kerberos.CreateKey", {
+	extend: "OMV.workspace.window.Form",
 
+	title: _("Create New Key"),
+	hideTopToolbar: true,
+	rpcService: "Kerberos",
+	rpcSetMethod: "createKey",
 
- OMV.WorkspaceManager.registerPanel({
- 	id: "keytab",
- 	path: "/privilege/kerberos",
- 	text: _("Key Tab"),
- 	position: 20,
- 	className: "OMV.module.admin.privilege.kerberos.KeyTab"
- });
+	plugins: [{
+		ptype: "linkedfields",
+		correlations: [{
+			name: "newPrincipalKey",
+			conditions: [
+				{ name: "randomKey", value: true }
+			],
+			properties: ["disabled", "allowBlank"]
+		}]
+	}],
+
+	getFormItems: function() {
+		var me = this;
+
+		return [{
+			xtype: "textfield",
+			name: "adminPrincipal",
+			fieldLabel: _("Administration Principal"),
+			value: me.adminPrincipal,
+			allowBlank: false
+		}, {
+			xtype: "passwordfield",
+			name: "adminPassword",
+			fieldLabel: _("Administration Password"),
+			value: me.adminPassword,
+			allowBlank: false
+		}, {
+			xtype: "textfield",
+			name: "newPrincipal",
+			fieldLabel: _("New Principal"),
+			value: me.newPrincipal,
+			allowBlank: false
+		}, {
+			xtype: "passwordfield",
+			name: "newPrincipalKey",
+			fieldLabel: _("New Principal Key"),
+			value: me.newPrincipalKey
+		}, {
+			xtype: "checkbox",
+			name: "randomKey",
+			fieldLabel: _("Use Random Key"),
+			checked: true
+		}]
+	}
+});
+
+OMV.WorkspaceManager.registerPanel({
+	id: "keytab",
+	path: "/privilege/kerberos",
+	text: _("Key Tab"),
+	position: 20,
+	className: "OMV.module.admin.privilege.kerberos.KeyTab"
+});

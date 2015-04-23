@@ -44,6 +44,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		$this -> registerMethod("getKeyTab");
 		$this -> registerMethod("addKeyFromKeyServer");
 		$this -> registerMethod("removeKey");
+		$this -> registerMethod("createKey");
 	}
 
 	/**
@@ -195,7 +196,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 	 *
 	 * @param params An array containing all of the parameters to this function.
 	 * @param context The context of the caller.
-	 * @return A list of keytab items.
+	 * @return The output from kadmin.
 	 */
 	function addKeyFromKeyServer($params, $context) {
 		// Validate the RPC caller context
@@ -218,7 +219,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		// and comparing.
 		$currentKeytab = $this -> getKeyTab($params, $context);
 
-		$cmd = sprintf("export LANG=C; kadmin -p %s -w %s -q \"ktadd %s\" 2>&1",
+		$cmd = sprintf("export LANG=C; kadmin -p \"%s\" -w \"%s\" -q \"ktadd \\\"%s\\\"\" 2>&1",
 				$params['adminPrincipal'],
 				$params['adminPassword'],
 				$params['targetPrincipal']
@@ -249,7 +250,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 	 *
 	 * @param params An array containing all of the parameters to this function.
 	 * @param context The context of the caller.
-	 * @return A list of keytab items.
+	 * @return The output from ktutil.
 	 */
 	function removeKey($params, $context) {
 		// Validate the RPC caller context
@@ -294,7 +295,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			// As we do this, every time we remove one, we decrement the rest
 			// of the slots by 1.
 			for($slot = 0; $slot < count($params['slots']); ++$slot) {
-				$cmd .= "delent " . $params['slots'][0] . "\n";
+				$cmd .= "delent " . $params['slots'][$slot] . "\n";
 
 				for($num = $slot+1; $num < count($params['slots']); ++$num) {
 					$params['slots'][$num]--;
@@ -310,6 +311,70 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			throw new OMVException(OMVErrorMsg::E_MISC_FAILURE,
 				sprintf("%s: %s", gettext("Failed to remove key(s) from key tab"), implode("\n", $output)));
 		}
+
+		return $output;
+	}
+
+	/**
+	 * Create a new key on the KDC and load it into the local keytab.
+	 *
+	 * Required parameters are an admin principal that has rights
+	 * to read the desired keytab, the admin principal's password,
+	 * the new principal to create, and either a password for the key
+	 * or instructions to randomly generate a key.
+	 *
+	 * @param params An array containing all of the parameters to this function.
+	 * @param context The context of the caller.
+	 * @return The output from kadmin.
+	 */
+	function createKey($params, $context) {
+		// Validate the RPC caller context
+		$this -> validateMethodContext($context, array(
+			"role" => OMV_ROLE_ADMINISTRATOR
+		));
+
+		// Validate the parameters of the RPC servicemethod.
+		$this -> validateMethodParams($params, '{
+			"type": "object",
+			"properties": {
+				"adminPassword": {"type": "string"},
+				"adminPrincipal": {"type": "string"},
+				"newPrincipal": {"type": "string"},
+				"newPrincipalKey": {"type": "string", "optional": true},
+				"randomKey": {"type": "boolean"}
+			}
+		}');
+
+		// First, create the key on the key server. Order of the query matters,
+		// so this is a bit weird.
+		$cmd = sprintf("export LANG=C; kadmin -p \"%s\" -w \"%s\" -q \"addprinc",
+				$params['adminPrincipal'],
+				$params['adminPassword']
+		);
+
+		if($params['randomKey']) {
+			$cmd .= " -randkey";
+		} else {
+			$cmd .= " -pw \\\"" . $params['newPrincipalKey'] . "\\\"";
+		}
+
+		$cmd .= " \\\"" . $params['newPrincipal'] . "\\\"\"";
+
+		$result = $this -> exec($cmd, $output);
+
+		if($result !== 0) {
+			throw new OMVException(OMVErrorMsg::E_MISC_FAILURE,
+				sprintf("%s: %s", gettext("Failed to create new key on KDC"), implode("\n", $output)));
+		}
+
+		// Now, use addKeyFromKeyServer to add the key to the keytab.
+		$addParams = array(
+			"adminPassword" => $params['adminPassword'],
+			"adminPrincipal" => $params['adminPrincipal'],
+			"targetPrincipal" => $params['newPrincipal']
+		);
+
+		$output .= $this -> addKeyFromKeyServer($addParams, $context);
 
 		return $output;
 	}
