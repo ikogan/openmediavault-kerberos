@@ -162,7 +162,7 @@ Ext.define("OMV.module.admin.privilege.kerberos.KeyTab", {
 		var me = this;
 		var records = me.getSelection();
 
-		Ext.MessageBox.confirm('Delete Keys?', 'Are you sure you want to remove these keys?', function(button) {
+		Ext.MessageBox.confirm(_('Delete Keys?'), _('Are you sure you want to remove these keys?'), function(button) {
 			if(button === 'yes') {
 				var slots = [];
 				Ext.each(records, function(record) {
@@ -175,7 +175,7 @@ Ext.define("OMV.module.admin.privilege.kerberos.KeyTab", {
 						if(success) {
 							me.doReload();
 						} else {
-           					Ext.Msg.alert('Error', response.message);
+           					Ext.Msg.alert(_('Error'), response.message);
 						}
 					},
 					rpcData: {
@@ -240,7 +240,7 @@ Ext.define("OMV.module.admin.privilege.kerberos.AddKey", {
 Ext.define("OMV.module.admin.privilege.kerberos.CreateKey", {
 	extend: "OMV.workspace.window.Form",
 
-	title: _("Create New Key"),
+	title: _("Create Principal"),
 	hideTopToolbar: true,
 	rpcService: "Kerberos",
 	rpcSetMethod: "createKey",

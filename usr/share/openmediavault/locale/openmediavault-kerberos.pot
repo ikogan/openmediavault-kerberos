@@ -66,3 +66,48 @@ msgstr ""
 
 msgid "Enable support for system-wide Kerberos authentication via PAM."
 msgstr ""
+
+msgid "Use Random Key"
+msgstr ""
+
+msgid "New Principal Key"
+msgstr ""
+
+msgid "New Principal"
+msgstr ""
+
+msgid "Administration Password"
+msgstr ""
+
+msgid "Administration Principal"
+msgstr ""
+
+msgid "New Principal"
+msgstr ""
+
+msgid "Target Principal"
+msgstr ""
+
+msgid "Add Key from Key Server"
+msgstr ""
+
+msgid "Delete Keys?"
+msgstr ""
+
+msgid "Are you sure you want to remove these keys?"
+msgstr ""
+
+msgid "Principal"
+msgstr ""
+
+msgid "Slot"
+msgstr ""
+
+msgid "Failed to add desired key from KDC"
+msgstr ""
+
+msgid "Failed to remove key(s) from key tab"
+msgstr ""
+
+msgid "Failed to create new key on KDC"
+msgstr ""
