@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# WastlJ, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-kerberos\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-23 06:31-0500\n"
-"PO-Revision-Date: 2015-04-23 11:32+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-04-23 13:09+0000\n"
+"Last-Translator: WastlJ\n"
 "Language-Team: German (http://www.transifex.com/projects/p/openmediavault-kerberos/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,123 +19,123 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add Key from Key Server"
-msgstr ""
+msgstr "Schlüssel von Schlüsselserver hinzufügen"
 
 msgid "Admin Server"
-msgstr ""
+msgstr "Administrator Server"
 
 msgid "Administration Password"
-msgstr ""
+msgstr "Administrationspasswort"
 
 msgid "Administration Principal"
-msgstr ""
+msgstr "Administrations Principal"
 
 msgid "Create Principal"
-msgstr ""
+msgstr "Principal erstellen"
 
 msgid "Enable"
-msgstr ""
+msgstr "Aktivieren"
 
 msgid "Enable support for Kerberos and GSSAPI authentication for SSH."
-msgstr ""
+msgstr "Aktiviere Keberos und GSSAPI SSH Authentifizierung."
 
 msgid "Enable support for Kerberos authentication for SMB/CIFS."
-msgstr ""
+msgstr "Aktiviere Kerberos SMB/CIFS Authentifizierung."
 
 msgid ""
 "Enable support for Kerberos security for NFS shares. Note that this must "
 "still be enabled per share by adding the `sec=krb5`, `sec=krb5i`, or "
 "`sec=krb5p` options."
-msgstr ""
+msgstr "Aktiviere Kerberossicherheit bei NFS Freigaben. Achtung: Diese Einstellung muss weiterhin bei jeder Freigabe mit \"sec=krb5\", \"sec=krb5i\" oder \"sec=krb5p\" gesetzt werden."
 
 msgid "Enable support for system-wide Kerberos authentication via PAM."
-msgstr ""
+msgstr "Aktiviere Systemweite Kerberos Authentifizierung via PAM."
 
 msgid "Extra options"
-msgstr ""
+msgstr "Erweiterte Optionen"
 
 msgid ""
 "FQDN in all caps. It should match a real domain that a DNS server (even if "
 "local) will resolve. Note that the actual domain does not have to be in all "
 "uppercase."
-msgstr ""
+msgstr "FQDN in Großbuchstaben. Es sollte einem realen Domainnamen entsprechen, damit ein DNS-Server (auch wenn dieser lokal ist) den Namen auflösen kann. Hinweis: Die eigentliche Domain muss nicht groß geschrieben werden."
 
 msgid "FQDN or IP address of the Kerberos Admin Server."
-msgstr ""
+msgstr "FQDN oder IP-Adresse des Kerberos Administration Servers."
 
 msgid "FQDN or IP address of the Kerberos Key Distribution Server."
-msgstr ""
+msgstr "FQDN oder IP-Adresse des Kerberos Schlüsselverteilungsservers."
 
 msgid "Failed to add desired key from KDC"
-msgstr ""
+msgstr "Fehler beim Hinzufügen des gewünschten Schlüssels vom KDC"
 
 msgid "Failed to create new key on KDC"
-msgstr ""
+msgstr "Fehler beim Erstellen eines neuen Schlüssels am KDC"
 
 msgid "Failed to remove key(s) from key tab"
-msgstr ""
+msgstr "Fehler beim Löschen des/ der Schlüssel/s"
 
 msgid "General settings"
-msgstr ""
+msgstr "Allgemeine Einstellungen"
 
 msgid "Integrations"
-msgstr ""
+msgstr "Einbindungen"
 
 msgid "KDC"
-msgstr ""
+msgstr "KDC (Key Distribution Center)"
 
 msgid "Kerberos"
-msgstr ""
+msgstr "Kerberos"
 
 msgid "Key Tab"
-msgstr ""
+msgstr "Tabulatortaste"
 
 msgid "Logging"
-msgstr ""
+msgstr "Logging"
 
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 msgid "New Principal"
-msgstr ""
+msgstr "Neuer Principal"
 
 msgid "New Principal Key"
-msgstr ""
+msgstr "Neuer Principal Schlüssel"
 
 msgid "PAM"
-msgstr ""
+msgstr "PAM"
 
 msgid ""
 "Please check the <a href='http://linux.die.net/man/5/krb5.conf' "
 "target='_blank'>manual page</a> for more details."
-msgstr ""
+msgstr "Bitte ziehe die  <a href='http://linux.die.net/man/5/krb5.conf' target='_blank'>Anleitung</a> für mehr Informationen zu Hilfe."
 
 msgid "Principal"
-msgstr ""
+msgstr "Principal"
 
 msgid "Realm"
-msgstr ""
+msgstr "Bereich"
 
 msgid "Reload"
-msgstr ""
+msgstr "Aktualisieren"
 
 msgid "SMB/CIFS"
-msgstr ""
+msgstr "SMB/CIFS"
 
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 msgid "Slot"
-msgstr ""
+msgstr "Steckplatz"
 
 msgid "Target Principal"
-msgstr ""
+msgstr "Ziel Principa"
 
 msgid "Use Random Key"
-msgstr ""
+msgstr "Zufälligen Schlüssel verwenden"
 
 msgid "Version"
-msgstr ""
+msgstr "Version"
