@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# songming <by@songming.me>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-kerberos\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-23 06:31-0500\n"
-"PO-Revision-Date: 2015-04-23 11:32+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-05-01 05:46+0000\n"
+"Last-Translator: songming <by@songming.me>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/openmediavault-kerberos/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add Key from Key Server"
-msgstr ""
+msgstr "从密钥服务器添加密钥"
 
 msgid "Admin Server"
 msgstr ""
@@ -30,10 +31,10 @@ msgid "Administration Principal"
 msgstr ""
 
 msgid "Create Principal"
-msgstr ""
+msgstr "创建主体"
 
 msgid "Enable"
-msgstr ""
+msgstr "启用"
 
 msgid "Enable support for Kerberos and GSSAPI authentication for SSH."
 msgstr ""
@@ -51,7 +52,7 @@ msgid "Enable support for system-wide Kerberos authentication via PAM."
 msgstr ""
 
 msgid "Extra options"
-msgstr ""
+msgstr "扩展选项"
 
 msgid ""
 "FQDN in all caps. It should match a real domain that a DNS server (even if "
@@ -69,22 +70,22 @@ msgid "Failed to add desired key from KDC"
 msgstr ""
 
 msgid "Failed to create new key on KDC"
-msgstr ""
+msgstr "在KDC创建新密钥失败"
 
 msgid "Failed to remove key(s) from key tab"
 msgstr ""
 
 msgid "General settings"
-msgstr ""
+msgstr "常规设置"
 
 msgid "Integrations"
 msgstr ""
 
 msgid "KDC"
-msgstr ""
+msgstr "KDC"
 
 msgid "Kerberos"
-msgstr ""
+msgstr "Kerberos"
 
 msgid "Key Tab"
 msgstr ""
@@ -93,16 +94,16 @@ msgid "Logging"
 msgstr ""
 
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 msgid "New Principal"
-msgstr ""
+msgstr "新主体"
 
 msgid "New Principal Key"
-msgstr ""
+msgstr "新主体密钥"
 
 msgid "PAM"
-msgstr ""
+msgstr "PAM"
 
 msgid ""
 "Please check the <a href='http://linux.die.net/man/5/krb5.conf' "
@@ -110,22 +111,22 @@ msgid ""
 msgstr ""
 
 msgid "Principal"
-msgstr ""
+msgstr "主体"
 
 msgid "Realm"
 msgstr ""
 
 msgid "Reload"
-msgstr ""
+msgstr "重载"
 
 msgid "SMB/CIFS"
-msgstr ""
+msgstr "SMB/CIFS"
 
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 msgid "Settings"
-msgstr ""
+msgstr "设置"
 
 msgid "Slot"
 msgstr ""
@@ -134,7 +135,7 @@ msgid "Target Principal"
 msgstr ""
 
 msgid "Use Random Key"
-msgstr ""
+msgstr "使用随机密钥"
 
 msgid "Version"
-msgstr ""
+msgstr "版本"
