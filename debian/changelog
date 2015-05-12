@@ -1,7 +1,8 @@
-openmediavault-kerberos (0.1.0) UNRELEASED; urgency=low
+openmediavault-kerberos (0.1.0) unstable; urgency=low
 
+  [ Ilya Kogan ]
   * Initial release.
   * Full implementation of initial Kerberos plugin.
   * Integrations for Samba, SSH, NFS, and PAM.
 
- -- Ilya Kogan <ikogan@flarecode>  Mon, 23 Mar 2015 23:10:49 -0400
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 12 May 2015 06:23:39 -0500
