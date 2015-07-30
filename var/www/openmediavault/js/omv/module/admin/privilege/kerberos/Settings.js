@@ -98,7 +98,7 @@ Ext.define("OMV.module.admin.privilege.kerberos.Settings", {
                 name       : "nfs-enabled",
                 fieldLabel : _("NFS"),
                 checked    : true,
-                boxLabel   : _("Enable support for Kerberos security for NFS shares. Note that this must still be enabled per share by adding the `sec=krb5`, `sec=krb5i`, or `sec=krb5p` options.")
+                boxLabel   : _("Enable support for Kerberos security for all NFS shares.")
             }, {
                 xtype      : "checkbox",
                 name       : "smb-enabled",

@@ -1,7 +1,12 @@
-openmediavault-kerberos (0.1.0) UNRELEASED; urgency=low
+openmediavault-kerberos (0.1.1) UNRELEASED; urgency=low
 
+  [ Ilya Kogan ]
   * Initial release.
   * Full implementation of initial Kerberos plugin.
   * Integrations for Samba, SSH, NFS, and PAM.
 
- -- Ilya Kogan <ikogan@flarecode>  Mon, 23 Mar 2015 23:10:49 -0400
+  [ Ilya Kogan ]
+  * Fixed inverted check causing rpc.svcgssd not starting.
+  * Automatically add Kerberos options to NFS exports.
+
+ -- Ilya Kogan <ikogan@flarecode.com>  Thu, 30 Jul 2015 19:31:53 -0400
