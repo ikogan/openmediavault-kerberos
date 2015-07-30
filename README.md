@@ -23,26 +23,13 @@ It supports the following:
 
 There are a few important caveats:
 
-1. In terms of NFS, it only enables support for it globally, the
-   `sec=krb5`, `sec=krb5p`, or `sec=krb5i` options still need to be
-   added to each share manually in the NFS configuration UI.
+1. In terms of NFS, it automatically sets up all exported shares with the
+   `sec` option set to `krb5:krb5i:krb5p`. This means that any of those are
+   supported per share and it's up to the clients to pick one. It also
+   means all shares require Kerberos.
+2. This now requires OpenMediaVault 2.0.3+. 1.17 is not supported.
 2. The locations of the Kerberos config files and keytab are hardcoded.
-3. Automatic SSH support only works on OpenMediaVault 2.0.3 or later as
-   it requires my SSH `mkconf` script patch. For older versions, simply
-   add the following as extra options in the SSH configuration:
-
-   ```
-   KerberosAuthentication yes
-   GSSAPIAuthentication yes
-   ```
-4. Creating a new key assumes you also want to load it to the local keytab,
+3. Creating a new key assumes you also want to load it to the local keytab,
    there is no way to create a key on the KDC and *not* load it except to
    create it first, then remove it. That seems a bit silly and isn't the
    intent of this plugin.
-
-If you're using openmediavault-ldap, it may be useful to use
-openmediavault-ldap 2.0 or greater in case you want to disable LDAP's PAM
-integration in leu of Kerberos. In this way, you can use LDAP's NSS support
-while taking advantage of the Kerberos ticket that `libpam-krb5` retrieves.
-
-This has been tested on OpenMediaVault 1.17 and not 2.0 quite yet.
