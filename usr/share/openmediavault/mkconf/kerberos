@@ -59,8 +59,10 @@ if [ "$(omv_config_get "//services/kerberos/enable")" = "1" ]; then
 	if [ "$(omv_config_get "//services/nfs/enable")" = "1" -o \
 	  "$(omv_config_get "//services/kerberos/nfs-enabled")" = "1" -o ]; then
 		omv_set_default "OMV_NFSD_NEEDSVCGSSD" "yes"
+		omv_set_default "OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS" "${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS},sec=krb5p:krb5i:krb5"
 	else
 		omv_set_default "OMV_NFSD_NEEDSVCGSSD" ""
+		omv_set_default "OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS" "${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS}"
 	fi
 else
 	omv_set_default "OMV_NFSD_NEEDSVCGSSD" ""

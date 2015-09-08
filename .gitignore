@@ -4,6 +4,8 @@
 *.swp
 *~
 
+.c9
+
 # Eclipse
 .project
 .metadata

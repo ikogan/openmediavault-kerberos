@@ -1,4 +1,4 @@
-openmediavault-kerberos (0.1.2) UNRELEASED; urgency=low
+openmediavault-kerberos (0.1.3) TESTING; urgency=low
 
   [ Ilya Kogan ]
   * Initial release.
@@ -12,4 +12,9 @@ openmediavault-kerberos (0.1.2) UNRELEASED; urgency=low
   [ Ilya Kogan ]
   * Compatiblity with OpenMediaVault 2.1.6
 
- -- Ilya Kogan <ikogan@flarecode.com>  Fri, 31 Jul 2015 20:50:10 -0400
+  [ Ilya Kogan ]
+  * Minor fix when modifying NFS exports to not screw up the comments.
+  * Change the priority of the mkconf script to 50 so other scripts
+    can more easily add exports that then get modified.
+
+ -- Ilya Kogan <ikogan@flarecode.com>  Mon, 07 Sep 2015 23:18:54 -0400

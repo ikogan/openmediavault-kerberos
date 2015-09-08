@@ -6,7 +6,7 @@ for OpenMediaVault and integrating it with NFS and Samba.
 Note that this is not intended to be a transparent plugin that integrates
 Kerberos with the existing OpenMediaVault user/group/directory framework.
 Rather, this provides an interface for the `/etc/krb5.conf` and
-`/etc/krb5.keytab` files.
+`/etc/krb5.keytab` files as well as NFS, Samba, and SSH integration.
 
 Additionally, this only provides support for Kerberos *clients*. There is
 no support for configuring and maintaining a KDC (although it does
