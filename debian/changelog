@@ -1,10 +1,5 @@
-openmediavault-kerberos (0.1.3) TESTING; urgency=low
-
-  [ Ilya Kogan ]
-  * Initial release.
-  * Full implementation of initial Kerberos plugin.
-  * Integrations for Samba, SSH, NFS, and PAM.
-
+openmediavault-kerberos (0.1.3) testing; urgency=low
+  
   [ Ilya Kogan ]
   * Fixed inverted check causing rpc.svcgssd not starting.
   * Automatically add Kerberos options to NFS exports.
@@ -17,4 +12,13 @@ openmediavault-kerberos (0.1.3) TESTING; urgency=low
   * Change the priority of the mkconf script to 50 so other scripts
     can more easily add exports that then get modified.
 
- -- Ilya Kogan <ikogan@flarecode.com>  Mon, 07 Sep 2015 23:18:54 -0400
+-- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 07 Sep 2015 23:18:54 -0400
+
+openmediavault-kerberos (0.1.0) unstable; urgency=low
+
+  [ Ilya Kogan ]
+  * Initial release.
+  * Full implementation of initial Kerberos plugin.
+  * Integrations for Samba, SSH, NFS, and PAM.
+
+-- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 12 May 2015 06:23:39 -0500
