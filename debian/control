@@ -10,7 +10,8 @@ Homepage: https://github.com/ikogan/openmediavault-kerberos
 Package: openmediavault-kerberos
 Architecture: all
 Depends: ${misc:Depends}, openmediavault (>= 1.0.7), libpam-krb5, krb5-user
-Description: The OpenMediaVault Kerberos plugin provides authentication,
+Description: Kerberos authentication for SSH, NFS, SMB, and PAM.
+ The OpenMediaVault Kerberos plugin provides authentication,
  via the Kerberos system, including support for secure and/or encrypted
  NFS as well as Kerberos support for SMB/CIFS and SSH. It *does not*
  provide a KDC or Admin server. This means that there must
