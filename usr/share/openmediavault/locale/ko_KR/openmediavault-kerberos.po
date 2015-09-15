@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Hyeonkyu Chu <hyeonkyu@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-kerberos\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-23 06:31-0500\n"
+"PO-Revision-Date: 2015-04-24 04:14+0000\n"
+"Last-Translator: Hyeonkyu Chu <hyeonkyu@gmail.com>\n"
+"Language-Team: Korean (Korea) (http://www.transifex.com/projects/p/openmediavault-kerberos/language/ko_KR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko_KR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add Key from Key Server"
+msgstr "키 서버로부터 추가"
+
+msgid "Admin Server"
+msgstr "관리 서버"
+
+msgid "Administration Password"
+msgstr "관리 암호"
+
+msgid "Administration Principal"
+msgstr "관리 주체"
+
+msgid "Create Principal"
+msgstr "생성 주체"
+
+msgid "Enable"
+msgstr "활성화"
+
+msgid "Enable support for Kerberos and GSSAPI authentication for SSH."
+msgstr "SSH를 위한 감시 인증 또는 GSSAPI* 지원을 활성화합니다.<br/>*GSSAPI: Generic Security Service Application Programming Interface. 일반 보안 서비스 응용 프로그램 프로그래밍 인터페이스."
+
+msgid "Enable support for Kerberos authentication for SMB/CIFS."
+msgstr "SMB/CIFS를 위한 감시 인증 지원을 활성화합니다."
+
+msgid ""
+"Enable support for Kerberos security for NFS shares. Note that this must "
+"still be enabled per share by adding the `sec=krb5`, `sec=krb5i`, or "
+"`sec=krb5p` options."
+msgstr "NFS 공유를 위한 감시 보안 지원을 활성화합니다. 참고: 이것은 각 공유에 `sec=krb5`, `sec=krb5i`, or `sec=krb5p` 선택 사항을 추가하여 활성화되어야 가능합니다."
+
+msgid "Enable support for system-wide Kerberos authentication via PAM."
+msgstr "PAM*을 통해 시스템 전체의 감시 인증에 대한 지원을 활성화합니다.<br/>*PAM: Pluggable Authentication Module. 착탈형 인증 모듈."
+
+msgid "Extra options"
+msgstr "추가 선택 사항"
+
+msgid ""
+"FQDN in all caps. It should match a real domain that a DNS server (even if "
+"local) will resolve. Note that the actual domain does not have to be in all "
+"uppercase."
+msgstr "FQDN*은 모두 대문자 . DNS 서버(지역도 해당)가 찾아낸 실제 도메인과 일치해야 합니다. 참고: 실제 도메인은 모두 대문자로 이루어져 있지 않습니다.<br/>*FQDN: Fully Qualified Domain Name. 정규화된/완전한 도메인 이름."
+
+msgid "FQDN or IP address of the Kerberos Admin Server."
+msgstr "감시 관리 서버의 FQDN* 또는 IP 주소.<br/>*FQDN: Fully Qualified Domain Name. 정규화된/완전한 도메인 이름."
+
+msgid "FQDN or IP address of the Kerberos Key Distribution Server."
+msgstr "감시 키 배포 서버의 FQDN* 또는 IP 주소.<br/>*FQDN: Fully Qualified Domain Name. 정규화된/완전한 도메인 이름."
+
+msgid "Failed to add desired key from KDC"
+msgstr "KDC에서 원하는 키를 추가하는 데 실패했습니다"
+
+msgid "Failed to create new key on KDC"
+msgstr "KDC의 신규 키 생성이 실패했습니다."
+
+msgid "Failed to remove key(s) from key tab"
+msgstr "키 탭에서 키(들)의 제거에 실패했습니다"
+
+msgid "General settings"
+msgstr "기본 설정"
+
+msgid "Integrations"
+msgstr "통합"
+
+msgid "KDC"
+msgstr "KDC"
+
+msgid "Kerberos"
+msgstr "Kerberos"
+
+msgid "Key Tab"
+msgstr "키 탭"
+
+msgid "Logging"
+msgstr "기록"
+
+msgid "NFS"
+msgstr "NFS"
+
+msgid "New Principal"
+msgstr "신규 주체"
+
+msgid "New Principal Key"
+msgstr "신규 주체 키"
+
+msgid "PAM"
+msgstr "PAM"
+
+msgid ""
+"Please check the <a href='http://linux.die.net/man/5/krb5.conf' "
+"target='_blank'>manual page</a> for more details."
+msgstr "자세한 내용은 <a href='http://linux.die.net/man/5/krb5.conf' target='_blank'>설명서 페이지</a>를 확인하세요."
+
+msgid "Principal"
+msgstr "주체"
+
+msgid "Realm"
+msgstr "범위"
+
+msgid "Reload"
+msgstr "재적재"
+
+msgid "SMB/CIFS"
+msgstr "SMB/CIFS"
+
+msgid "SSH"
+msgstr "SSH"
+
+msgid "Settings"
+msgstr "설정"
+
+msgid "Slot"
+msgstr "칸"
+
+msgid "Target Principal"
+msgstr "대상 주체"
+
+msgid "Use Random Key"
+msgstr "임의 키 사용"
+
+msgid "Version"
+msgstr "판"

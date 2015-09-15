@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Raul Fernandez Garcia <raulfg3@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-kerberos\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-23 06:31-0500\n"
+"PO-Revision-Date: 2015-05-04 20:48+0000\n"
+"Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/openmediavault-kerberos/language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add Key from Key Server"
+msgstr "Añadir key al servidor"
+
+msgid "Admin Server"
+msgstr "Servidor de administración"
+
+msgid "Administration Password"
+msgstr "Contraseña de administración"
+
+msgid "Administration Principal"
+msgstr "Principal de administración"
+
+msgid "Create Principal"
+msgstr "Crear Principal"
+
+msgid "Enable"
+msgstr "Habilitar"
+
+msgid "Enable support for Kerberos and GSSAPI authentication for SSH."
+msgstr "Habilitar soporte de autentificación Kerberos y GSSAPI para SSH."
+
+msgid "Enable support for Kerberos authentication for SMB/CIFS."
+msgstr "Habilitar soperte de autentificación kerberos para SMB/CIFS."
+
+msgid ""
+"Enable support for Kerberos security for NFS shares. Note that this must "
+"still be enabled per share by adding the `sec=krb5`, `sec=krb5i`, or "
+"`sec=krb5p` options."
+msgstr "Habilitar soperte de autentificación kerberos para compartidos NFS. Nota: debe habilitarse para cada compartido añadiendo la opción: `sec=krb5`, `sec=krb5i`, o `sec=krb5p"
+
+msgid "Enable support for system-wide Kerberos authentication via PAM."
+msgstr "Habilitar autentificación Kerberos via PAM."
+
+msgid "Extra options"
+msgstr "Opciones"
+
+msgid ""
+"FQDN in all caps. It should match a real domain that a DNS server (even if "
+"local) will resolve. Note that the actual domain does not have to be in all "
+"uppercase."
+msgstr "FQDN debe ser en mayusculas obligatoriamente. Debe coincidir con un dominio real que un servidor DNS pueda resolver (incluso localmente). Atención: el dominio actual no tiene todos los caracteres en mayusculas."
+
+msgid "FQDN or IP address of the Kerberos Admin Server."
+msgstr "FQND o IP del servidor de administración de Kerberos."
+
+msgid "FQDN or IP address of the Kerberos Key Distribution Server."
+msgstr "FQND o IP del servidor de de distribución de llaves (keys) de Kerberos."
+
+msgid "Failed to add desired key from KDC"
+msgstr "Falló el añadir la key desde KDC"
+
+msgid "Failed to create new key on KDC"
+msgstr "Falló el crear una nueva key en el KDC"
+
+msgid "Failed to remove key(s) from key tab"
+msgstr "Falló el eliminar las key(s) de la pestaña de llaves"
+
+msgid "General settings"
+msgstr "Opciones"
+
+msgid "Integrations"
+msgstr "Integraciones"
+
+msgid "KDC"
+msgstr "KDC"
+
+msgid "Kerberos"
+msgstr "Kerberos"
+
+msgid "Key Tab"
+msgstr "Pestaña de llaves"
+
+msgid "Logging"
+msgstr "Logging"
+
+msgid "NFS"
+msgstr "NFS"
+
+msgid "New Principal"
+msgstr "Nuevo principal"
+
+msgid "New Principal Key"
+msgstr "Nueva key principal"
+
+msgid "PAM"
+msgstr "PAM"
+
+msgid ""
+"Please check the <a href='http://linux.die.net/man/5/krb5.conf' "
+"target='_blank'>manual page</a> for more details."
+msgstr "Por favor revise la página  <a href='http://linux.die.net/man/5/krb5.conf' target='_blank'>del manual</a> para mas detalles."
+
+msgid "Principal"
+msgstr "Principal"
+
+msgid "Realm"
+msgstr "Realm"
+
+msgid "Reload"
+msgstr "Recargar"
+
+msgid "SMB/CIFS"
+msgstr "SMB/CIFS"
+
+msgid "SSH"
+msgstr "SSH"
+
+msgid "Settings"
+msgstr "Opciones"
+
+msgid "Slot"
+msgstr "Slot"
+
+msgid "Target Principal"
+msgstr "Objetivo principal"
+
+msgid "Use Random Key"
+msgstr "Usar key aleatoria"
+
+msgid "Version"
+msgstr "Version"
