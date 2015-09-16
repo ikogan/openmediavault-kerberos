@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# kochin <kochinc@outlook.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-kerberos\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-23 06:31-0500\n"
+"PO-Revision-Date: 2015-04-23 22:42+0000\n"
+"Last-Translator: kochin <kochinc@outlook.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/openmediavault-kerberos/language/zh_TW/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add Key from Key Server"
+msgstr "新增從密鑰伺服器取得的密鑰"
+
+msgid "Admin Server"
+msgstr "管理伺服器"
+
+msgid "Administration Password"
+msgstr "管理密碼"
+
+msgid "Administration Principal"
+msgstr "管理主體"
+
+msgid "Create Principal"
+msgstr "建立主體"
+
+msgid "Enable"
+msgstr "啟用"
+
+msgid "Enable support for Kerberos and GSSAPI authentication for SSH."
+msgstr "為 SSH 啟用 Kerberos 與 GSSAPI 的支援。"
+
+msgid "Enable support for Kerberos authentication for SMB/CIFS."
+msgstr "為 SMB/CIFS 啟用 Kerberos 的支援。"
+
+msgid ""
+"Enable support for Kerberos security for NFS shares. Note that this must "
+"still be enabled per share by adding the `sec=krb5`, `sec=krb5i`, or "
+"`sec=krb5p` options."
+msgstr "為 NFS 共享啟用 Kerberos 安全系統的支援。請注意每個共享仍須分別啟用此功能，將 `sec=krb5`、`sec=krb5i` 或 `sec=krb5p` 選項加入其設定中。"
+
+msgid "Enable support for system-wide Kerberos authentication via PAM."
+msgstr "經由 PAM 啟用全系統 Kerberos 驗證的支援。"
+
+msgid "Extra options"
+msgstr "額外選項"
+
+msgid ""
+"FQDN in all caps. It should match a real domain that a DNS server (even if "
+"local) will resolve. Note that the actual domain does not have to be in all "
+"uppercase."
+msgstr "全部大寫的 FQDN。它應該符合一個能被 DNS 伺服器(既使是本地伺服器)解析的真實網域。請注意實際的網域並不須要是全部大寫。"
+
+msgid "FQDN or IP address of the Kerberos Admin Server."
+msgstr "Kerberos 管理伺服器的 FQDN 或 IP 地址。"
+
+msgid "FQDN or IP address of the Kerberos Key Distribution Server."
+msgstr "Kerberos 密鑰分配伺服器的 FQDN 或 IP 地址。"
+
+msgid "Failed to add desired key from KDC"
+msgstr "新增從 KDC 取得所要的密鑰失敗。"
+
+msgid "Failed to create new key on KDC"
+msgstr "在 KDC 上建立新的密鑰失敗。"
+
+msgid "Failed to remove key(s) from key tab"
+msgstr "從密鑰分頁移除密鑰失敗。"
+
+msgid "General settings"
+msgstr "一般設定"
+
+msgid "Integrations"
+msgstr "整合"
+
+msgid "KDC"
+msgstr "KDC"
+
+msgid "Kerberos"
+msgstr "Kerberos"
+
+msgid "Key Tab"
+msgstr "密鑰分頁"
+
+msgid "Logging"
+msgstr "日誌"
+
+msgid "NFS"
+msgstr "NFS"
+
+msgid "New Principal"
+msgstr "新增主體"
+
+msgid "New Principal Key"
+msgstr "新增主體密鑰"
+
+msgid "PAM"
+msgstr "PAM"
+
+msgid ""
+"Please check the <a href='http://linux.die.net/man/5/krb5.conf' "
+"target='_blank'>manual page</a> for more details."
+msgstr "詳情請查閱 <a href='http://linux.die.net/man/5/krb5.conf' target='_blank'>手册頁</a>。"
+
+msgid "Principal"
+msgstr "主體(Principal)"
+
+msgid "Realm"
+msgstr "領域(Realm)"
+
+msgid "Reload"
+msgstr "重新載入"
+
+msgid "SMB/CIFS"
+msgstr "SMB/CIFS"
+
+msgid "SSH"
+msgstr "SSH"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Slot"
+msgstr "插槽(Slot)"
+
+msgid "Target Principal"
+msgstr "目標主體"
+
+msgid "Use Random Key"
+msgstr "使用隨機密鑰"
+
+msgid "Version"
+msgstr "版本"
