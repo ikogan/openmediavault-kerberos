@@ -25,10 +25,27 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 case "$1" in
+    remove)
+        # Remove the configuration data
+        omv_config_update "/config/services/kerberos/enable" "0"
+
+        # Revert all settings
+        omv-mkconf kerberos
+        omv-mkconf nfsd
+        omv-mkconf pam
+        omv-mkconf samba
+        omv-mkconf ssh
+    ;;
     purge)
         # Remove the configuration data
         omv_config_delete "/config/services/kerberos"
-        omv_set_default "OMV_NFSD_NEEDSVCGSSD" ""
+        
+        # Revert all settings
+        omv-mkconf kerberos
+        omv-mkconf nfsd
+        omv-mkconf pam
+        omv-mkconf samba
+        omv-mkconf ssh
     ;;
 
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)

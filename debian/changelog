@@ -1,3 +1,11 @@
+openmediavault-kerberos (0.1.4) testing; urgency=low
+
+  [ Ilya Kogan ]
+  * Fix NFS export flags getting duplicated and never removed both
+    when the plugin is deactivated and when uninstalled.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 04 Jan 2016 22:30:45 -0500
+
 openmediavault-kerberos (0.1.3) testing; urgency=low
 
   [ Ilya Kogan ]
@@ -12,7 +20,7 @@ openmediavault-kerberos (0.1.3) testing; urgency=low
   * Change the priority of the mkconf script to 50 so other scripts
     can more easily add exports that then get modified.
 
--- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 07 Sep 2015 23:18:54 -0400
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 07 Sep 2015 23:18:54 -0400
 
 openmediavault-kerberos (0.1.0) unstable; urgency=low
 
@@ -21,4 +29,4 @@ openmediavault-kerberos (0.1.0) unstable; urgency=low
   * Full implementation of initial Kerberos plugin.
   * Integrations for Samba, SSH, NFS, and PAM.
 
--- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 12 May 2015 06:23:39 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 12 May 2015 06:23:39 -0500

@@ -44,10 +44,11 @@ case "$1" in
             omv_config_add_element "${SERVICE_XPATH}" "logging" "0"
         fi
 
-        # Since libpam-krb5 automatically enables itself on install, we need
-        # to make sure we disable it. However, if a user has already enabled it
-        # on upgrade, we need to make sure we don't flip it off by mistake.
-	    ${OMV_MKCONF_SCRIPTS_DIR}/pam.d/12-kerberos
+	      omv-mkconf kerberos
+        omv-mkconf nfsd
+        omv-mkconf pam
+        omv-mkconf samba
+        omv-mkconf ssh
 
         dpkg-trigger update-fixperms
         dpkg-trigger update-locale
