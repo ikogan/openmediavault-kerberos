@@ -34,5 +34,6 @@ xmlstarlet sel -t -m "//services/kerberos" \
   -o "#======================= Kerberos Settings =======================" -n \
   -o "kerberos method = secrets and keytab" -n \
   -v "concat('realm = ', realm)" -n \
-  -v "concat('password server = ', kdc)" -n \
+  -o 'password server = ' \
+  -m "kdcs/kdc" -v "concat(., ' ')" -b -n \
   ${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_SAMBA_CONFIG}

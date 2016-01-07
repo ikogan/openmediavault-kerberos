@@ -30,6 +30,7 @@ case "$1" in
         SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
 
         if ! omv_config_exists "${SERVICE_XPATH}"; then
+            # Create default configuration
             omv_config_add_element "/config/services" "${SERVICE_XPATH_NAME}"
             omv_config_add_element "${SERVICE_XPATH}" "enable" "0"
             omv_config_add_element "${SERVICE_XPATH}" "realm" ""
@@ -42,9 +43,18 @@ case "$1" in
             omv_config_add_element "${SERVICE_XPATH}" "ssh-enabled"   "1"
 
             omv_config_add_element "${SERVICE_XPATH}" "logging" "0"
+        else
+            # Migrate existing configuration
+            if omv_config_exists "${SERVICE_XPATH}/kdc"; then
+                # Need to move the singular KDC element to multiple KDCs
+                KDC=$(omv_config_get "${SERVICE_XPATH}/kdc")
+                omv_config_add_element "${SERVICE_XPATH}" "kdcs"
+                omv_config_add_element "${SERVICE_XPATH}/kdcs" "kdc" "${KDC}"
+                omv_config_delete "${SERVICE_XPATH}/kdc"
+            fi
         fi
 
-	      omv-mkconf kerberos
+	    omv-mkconf kerberos
         omv-mkconf nfsd
         omv-mkconf pam
         omv-mkconf samba

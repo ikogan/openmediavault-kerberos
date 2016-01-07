@@ -52,13 +52,13 @@ Ext.define("OMV.module.admin.privilege.kerberos.Settings", {
                 }]
             },{
                 xtype      : "textfield",
-                name       : "kdc",
-                fieldLabel : _("KDC"),
+                name       : "kdcs",
+                fieldLabel : _("KDCs"),
                 allowBlank : false,
-                vtype: "domainnameIP",
+                vtype: "domainnameIPList",
                 plugins: [{
                     ptype: "fieldinfo",
-                    text: _("FQDN or IP address of the Kerberos Key Distribution Server.")
+                    text: _("FQDN or IP address of the Kerberos Key Distribution Servers. Separate multiple servers with commas.")
                 }]
             },{
                 xtype      : "textfield",

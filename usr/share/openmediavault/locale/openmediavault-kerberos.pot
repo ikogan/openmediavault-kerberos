@@ -54,7 +54,7 @@ msgstr ""
 msgid "FQDN or IP address of the Kerberos Admin Server."
 msgstr ""
 
-msgid "FQDN or IP address of the Kerberos Key Distribution Server."
+msgid ""FQDN or IP address of the Kerberos Key Distribution Servers. Separate multiple servers with commas."
 msgstr ""
 
 msgid "Failed to add desired key from KDC"
@@ -73,6 +73,9 @@ msgid "Integrations"
 msgstr ""
 
 msgid "KDC"
+msgstr ""
+
+msgid "KDCs"
 msgstr ""
 
 msgid "Kerberos"

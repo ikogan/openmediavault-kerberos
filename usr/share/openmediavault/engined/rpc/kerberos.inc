@@ -70,6 +70,14 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		}
 
 		// Modify result object.
+		if(array_key_exists('kdcs', $object) && array_key_exists('kdc', $object['kdcs'])) {
+			if(is_array($object['kdcs']['kdc'])) {
+				$object['kdcs'] = implode(',', $object['kdcs']['kdc']);
+			} else {
+				$object['kdcs'] = $object['kdcs']['kdc'];
+			}
+		}
+		
 		$object['enable'] = boolvalEx($object['enable']);
 		$object['logging'] = boolvalEx($object['logging']);
 		$object['nfs-enabled'] = boolvalEx($object['nfs-enabled']);
@@ -102,7 +110,7 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 			"properties": {
 				"enable": {"type": "boolean"},
 				"realm": {"type": "string"},
-				"kdc": {"type": "string"},
+				"kdcs": {"type": "string"},
 				"adminServer": {"type": "string"},
 				"logging": {"type": "boolean"},
 				"extraoptions": {"type": "string"},
@@ -114,10 +122,14 @@ class OMVRpcServiceKerberos extends OMVRpcServiceAbstract {
 		}');
 
 		// Prepare the configuration object.
+		$kdcs = explode(trim($params['kdcs']));
+		
 		$object = array(
 			"enable" => array_boolval($params, 'enable'),
 			"realm" => strtoupper(trim($params['realm'])),
-			"kdc" => trim($params['kdc']),
+			"kdcs" => array(
+				"kdc" => preg_split("/[,;]/", trim($params['kdcs']))
+			),
 			"adminServer" => trim($params['adminServer']),
 			"logging" => array_boolval($params, 'logging'),
 			"extraoptions" => $params['extraoptions'],

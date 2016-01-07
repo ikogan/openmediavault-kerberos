@@ -11,6 +11,8 @@ fakeroot debian/rules clean binary
 
 dpkg -i /openmediavault-kerberos*.deb || true
 apt-get -f install -y
+
 /etc/init.d/openmediavault-engined stop
+sleep 1
 
 omv-engined -d -f
