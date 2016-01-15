@@ -62,16 +62,12 @@ if [ "$(omv_config_get "//services/kerberos/enable")" = "1" ]; then
 	if [ "$(omv_config_get "//services/nfs/enable")" = "1" -o \
 	  "$(omv_config_get "//services/kerberos/nfs-enabled")" = "1" -o ]; then
 		OMV_NFSD_NEEDSVCGSSD="yes"
-		OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS=$(echo ${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS} | sed 's/'",${OMV_NFSD_V4_DEFAULT_KERBEROS_FLAGS}"'//g')
-		OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS=${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS},${OMV_NFSD_V4_DEFAULT_KERBEROS_FLAGS} # Add one entry back in
 	else
 		OMV_NFSD_NEEDSVCGSSD=""
-		OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS=$(echo ${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS} | sed 's/'",${OMV_NFSD_V4_DEFAULT_KERBEROS_FLAGS}"'//g')
 	fi
 else
 	OMV_NFSD_NEEDSVCGSSD=""
-	OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS=$(echo ${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS} | sed 's/'",${OMV_NFSD_V4_DEFAULT_KERBEROS_FLAGS}"'//g')
 fi
 
 omv_set_default "OMV_NFSD_NEEDSVCGSSD" "${OMV_NFSD_NEEDSVCGSSD}"
-omv_set_default "OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS" "${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS}"
+omv_set_default "OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS" $(echo ${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS} | sed 's/'",*${OMV_NFSD_V4_DEFAULT_KERBEROS_FLAGS}"'//g')

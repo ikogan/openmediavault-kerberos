@@ -62,6 +62,10 @@ case "$1" in
 
         dpkg-trigger update-fixperms
         dpkg-trigger update-locale
+        
+        service nfs-kernel-server restart
+        service smbd restart
+        service ssh restart
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

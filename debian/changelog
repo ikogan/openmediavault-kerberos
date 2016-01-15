@@ -1,3 +1,10 @@
+openmediavault-kerberos (0.1.5) tesing; urgency=low
+
+  [ Ilya Kogan ]
+  * Fix munging NFS default options when they're empty.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 14 Jan 2016 23:31:38 -0500
+
 openmediavault-kerberos (0.1.4) testing; urgency=low
 
   [ Ilya Kogan ]
