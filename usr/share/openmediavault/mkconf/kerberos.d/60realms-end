@@ -24,26 +24,12 @@ set -e
 . /etc/default/openmediavault
 . /usr/share/openmediavault/scripts/helper-functions
 
-OMV_MKCONF_SCRIPTS_DIR=${OMV_MKCONF_SCRIPTS_DIR:-"/usr/share/openmediavault/mkconf"}
+OMV_KRB5_CONFIG="/etc/krb5.conf"
 
-OMV_KRB5_CONFIG=${OMV_KRB5_CONFIG:-"/etc/krb5.conf"}
-OMV_KRB5_KEYTAB=${OMV_KRB5_KEYTAB:-"/etc/krb5.keytab"}
-OMV_KRB5_EXTENSIONS_DIR=${OMV_KRB5_EXTENSIONS_DIR:-"${OMV_MKCONF_SCRIPTS_DIR}/kerberos.d"}
-
-OMV_NFSD_V4_DEFAULT_KERBEROS_FLAGS=${OMV_NFSD_V4_DEFAULT_KERBEROS_FLAGS:-"sec=krb5p:krb5i:krb5"}
-OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS=${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS:-""}
-
-rm -f ${OMV_KRB5_CONFIG}
-
-if [[ "$(omv_config_get "//services/kerberos/enable")" = "1" &&
-	  "$(omv_config_get "//services/nfs/enable")" = "1" &&
-	  "$(omv_config_get "//services/kerberos/nfs-enabled")" = "1" ]]; then
-	OMV_NFSD_NEEDSVCGSSD="yes"
-else
-	OMV_NFSD_NEEDSVCGSSD=""
+if [ "$(omv_config_get "//services/kerberos/enable")" = "1" ]; then
+	if [ "$(omv_config_get "//services/kerberos/logging")" = "1" ]; then
+	    xmlstarlet sel -t -m "//services/kerberos" \
+			-o "	}" -n \
+		-b ${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
+	fi
 fi
-
-omv_set_default "OMV_NFSD_NEEDSVCGSSD" "${OMV_NFSD_NEEDSVCGSSD}"
-omv_set_default "OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS" $(echo ${OMV_NFSD_V4_DEFAULT_EXPORT_OPTIONS} | sed 's/'",*${OMV_NFSD_V4_DEFAULT_KERBEROS_FLAGS}"'//g')
-
-run-parts --exit-on-error ${OMV_KRB5_EXTENSIONS_DIR}

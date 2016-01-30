@@ -63,9 +63,9 @@ case "$1" in
         dpkg-trigger update-fixperms
         dpkg-trigger update-locale
         
-        invoke-rc.d nfs-kernel-server restart
-        invoke-rc.d smbd restart
-        invoke-rc.d ssh restart
+        invoke-rc.d nfs-kernel-server restart || true
+        invoke-rc.d smbd restart || true
+        invoke-rc.d ssh restart || true
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
