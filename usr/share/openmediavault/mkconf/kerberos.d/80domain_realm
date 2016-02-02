@@ -27,11 +27,9 @@ set -e
 OMV_KRB5_CONFIG="/etc/krb5.conf"
 
 if [ "$(omv_config_get "//services/kerberos/enable")" = "1" ]; then
-	if [ "$(omv_config_get "//services/kerberos/logging")" = "1" ]; then
-	    xmlstarlet sel -t -m "//services/kerberos" \
--o "[domain_realm]" -n \
-		-o "	" -v "translate(realm, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" -v "concat(' = ', realm)" -n \
-		-o "	." -v "translate(realm, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" -v "concat(' = ', realm)" -n \
-		-b ${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
-	fi
+    xmlstarlet sel -t -m "//services/kerberos" \
+		-o "[domain_realm]" -n \
+		-o "    " -v "translate(realm, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" -v "concat(' = ', realm)" -n \
+		-o "    ." -v "translate(realm, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" -v "concat(' = ', realm)" -n \
+	-b ${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
 fi

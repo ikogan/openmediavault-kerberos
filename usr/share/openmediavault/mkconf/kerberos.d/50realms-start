@@ -27,15 +27,13 @@ set -e
 OMV_KRB5_CONFIG="/etc/krb5.conf"
 
 if [ "$(omv_config_get "//services/kerberos/enable")" = "1" ]; then
-	if [ "$(omv_config_get "//services/kerberos/logging")" = "1" ]; then
-	    xmlstarlet sel -t -m "//services/kerberos" \
-            -o "[realms]" -n \
-    		-o "	" -v "concat(realm, ' = {')" -n \
-    		-m "kdcs/kdc" \
-    		-o "		" -v "concat('kdc = ', .)" -n -b \
-    		-m "//services/kerberos" \
-    		-o "		" -v "concat('admin_server = ', adminServer)" -n \
-    		-o "		" -v "concat('default_domain = ', realm)" -n \
-		-b ${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
-	fi
+    xmlstarlet sel -t -m "//services/kerberos" \
+        -o "[realms]" -n \
+		-o "    " -v "concat(realm, ' = {')" -n \
+		-m "kdcs/kdc" \
+		-o "        " -v "concat('kdc = ', .)" -n -b \
+		-m "//services/kerberos" \
+		-o "        " -v "concat('admin_server = ', adminServer)" -n \
+		-o "        " -v "concat('default_domain = ', realm)" \
+	-b ${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${OMV_KRB5_CONFIG}
 fi
